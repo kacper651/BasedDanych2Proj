@@ -21,3 +21,4 @@ C:\Users\Wrobl\Desktop\BasedDanych2Proj\SportCenterDataBaseApp\SportCenterDataBa
 C:\Users\Wrobl\Desktop\BasedDanych2Proj\SportCenterDataBaseApp\SportCenterDataBaseApp\obj\Debug\SportCenterDataBaseApp.csproj.CopyComplete
 C:\Users\Wrobl\Desktop\BasedDanych2Proj\SportCenterDataBaseApp\SportCenterDataBaseApp\obj\Debug\SportCenterDataBaseApp.exe
 C:\Users\Wrobl\Desktop\BasedDanych2Proj\SportCenterDataBaseApp\SportCenterDataBaseApp\obj\Debug\SportCenterDataBaseApp.pdb
+C:\Users\Wrobl\Desktop\BasedDanych2Proj\SportCenterDataBaseApp\SportCenterDataBaseApp\obj\Debug\SportCenterDataBaseApp.MainWindow.resources
