@@ -65,6 +65,20 @@ namespace SportCenterDataBaseApp
 
         }
 
+        private void showReservations()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM reservation";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                adapter.SelectCommand.CommandType = CommandType.Text;
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                dataGridViewReservations.DataSource = dt;
+            }
+        }
+
         private void showCustomers()
         {
             using(MySqlConnection connection = new MySqlConnection(connectionString))
@@ -97,6 +111,7 @@ namespace SportCenterDataBaseApp
         private void Form1_Load(object sender, EventArgs e)
         {
             GridFill();
+            showReservations();
         }
 
         private void buttonAddCustomer_Click(object sender, EventArgs e)
@@ -166,7 +181,7 @@ namespace SportCenterDataBaseApp
             textBoxEmail.Clear();
         }
 
-        private void dataGridView1_DoubleClick(object sender, EventArgs e)
+        private void dataGridViewReservations_DoubleClick(object sender, EventArgs e)
         {
 
         }

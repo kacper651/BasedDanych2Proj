@@ -35,7 +35,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.buttonAddCustomer = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewReservations = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
@@ -54,7 +54,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservations)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonDeleteCustomer
@@ -116,17 +116,17 @@
             this.button7.Text = "button2";
             this.button7.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dataGridViewReservations
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(219, 307);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(450, 173);
-            this.dataGridView1.TabIndex = 4;
-            this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
+            this.dataGridViewReservations.AllowUserToAddRows = false;
+            this.dataGridViewReservations.AllowUserToDeleteRows = false;
+            this.dataGridViewReservations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewReservations.Location = new System.Drawing.Point(219, 307);
+            this.dataGridViewReservations.Name = "dataGridViewReservations";
+            this.dataGridViewReservations.ReadOnly = true;
+            this.dataGridViewReservations.Size = new System.Drawing.Size(450, 173);
+            this.dataGridViewReservations.TabIndex = 4; 
+            this.dataGridViewReservations.DoubleClick += new System.EventHandler(this.dataGridViewReservations_DoubleClick);
             // 
             // label1
             // 
@@ -292,7 +292,7 @@
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridViewReservations);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.buttonAddCustomer);
             this.Controls.Add(this.button4);
@@ -304,7 +304,7 @@
             this.Text = "FitnessPortal";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservations)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -318,7 +318,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button buttonAddCustomer;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewReservations;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxName;
