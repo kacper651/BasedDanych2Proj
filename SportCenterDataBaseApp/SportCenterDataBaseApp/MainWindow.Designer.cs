@@ -53,6 +53,10 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservations)).BeginInit();
             this.SuspendLayout();
@@ -81,7 +85,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(3, 432);
+            this.button2.Location = new System.Drawing.Point(3, 531);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(102, 23);
             this.button2.TabIndex = 3;
@@ -90,7 +94,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(111, 432);
+            this.button4.Location = new System.Drawing.Point(111, 531);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(102, 23);
             this.button4.TabIndex = 3;
@@ -121,11 +125,11 @@
             this.dataGridViewReservations.AllowUserToAddRows = false;
             this.dataGridViewReservations.AllowUserToDeleteRows = false;
             this.dataGridViewReservations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewReservations.Location = new System.Drawing.Point(219, 307);
+            this.dataGridViewReservations.Location = new System.Drawing.Point(219, 380);
             this.dataGridViewReservations.Name = "dataGridViewReservations";
             this.dataGridViewReservations.ReadOnly = true;
             this.dataGridViewReservations.Size = new System.Drawing.Size(450, 173);
-            this.dataGridViewReservations.TabIndex = 4; 
+            this.dataGridViewReservations.TabIndex = 4;
             this.dataGridViewReservations.DoubleClick += new System.EventHandler(this.dataGridViewReservations_DoubleClick);
             // 
             // label1
@@ -215,7 +219,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(5, 356);
+            this.label7.Location = new System.Drawing.Point(5, 455);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(59, 13);
             this.label7.TabIndex = 9;
@@ -224,7 +228,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 383);
+            this.label8.Location = new System.Drawing.Point(32, 482);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 13);
             this.label8.TabIndex = 10;
@@ -233,7 +237,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(5, 409);
+            this.label9.Location = new System.Drawing.Point(15, 508);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 13);
             this.label9.TabIndex = 10;
@@ -241,23 +245,23 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(68, 353);
+            this.textBox1.Location = new System.Drawing.Point(68, 452);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(121, 20);
             this.textBox1.TabIndex = 11;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(68, 380);
+            this.textBox2.Location = new System.Drawing.Point(68, 479);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.Size = new System.Drawing.Size(121, 20);
             this.textBox2.TabIndex = 11;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(68, 406);
+            this.textBox3.Location = new System.Drawing.Point(68, 505);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.Size = new System.Drawing.Size(121, 20);
             this.textBox3.TabIndex = 11;
             // 
             // label10
@@ -270,11 +274,51 @@
             this.label10.TabIndex = 12;
             this.label10.Text = "FitnessPortal♿♿♿";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(68, 398);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 13;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.Combobox1_onChange);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 401);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(53, 13);
+            this.label11.TabIndex = 14;
+            this.label11.Text = "Kompleks";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(24, 428);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 13);
+            this.label12.TabIndex = 16;
+            this.label12.Text = "Obiekt";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(68, 425);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 15;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.Combobox2_onChange);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(785, 572);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
@@ -336,6 +380,10 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 

@@ -67,16 +67,122 @@ namespace SportCenterDataBaseApp
 
         private void showReservations()
         {
+            int selectedComplex = ((KeyValuePair<int, string>)this.comboBox1.SelectedItem).Key;
+            int selectedFacility = ((KeyValuePair<int, string>)this.comboBox2.SelectedItem).Key;
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT * FROM reservation";
-                MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
-                adapter.SelectCommand.CommandType = CommandType.Text;
+                var query = "SELECT * FROM reservation";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                if (selectedComplex == 0 && selectedFacility == 0)
+                {
+                    query = "SELECT * FROM reservation";
+                    cmd = new MySqlCommand(query, connection);
+                }
+                else if (selectedFacility != 0)
+                {
+                    query = "SELECT * FROM reservation WHERE reservation_facility_id = @reservationFacilityId";
+                    cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@reservationFacilityId", selectedFacility);
+                    cmd.Prepare();
+                }
+                else if (selectedComplex != 0)
+                {
+                    query = "SELECT * FROM reservation " +
+                        "JOIN sport_facility " +
+                        "ON reservation.reservation_facility_id = sport_facility.sport_facility_id " +
+                        "WHERE sport_facility.sport_complex_id=@sportComplexId";
+                    cmd = new MySqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@sportComplexId", selectedComplex);
+                    cmd.Prepare();
+                }
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = cmd;
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 dataGridViewReservations.DataSource = dt;
             }
+        }
+
+        private void loadSportComplexOptions()
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM sport_complex";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.CommandType = CommandType.Text;
+                MySqlDataReader dataReader =  cmd.ExecuteReader();
+
+                Dictionary<int, string> itemsDictionary = new Dictionary<int, string>
+                {
+                    { 0, "Wszystko" }
+                };
+
+                while (dataReader.Read())
+                {
+                    itemsDictionary.Add(dataReader.GetInt32(0), dataReader.GetString(1));
+                }
+
+                this.comboBox1.DataSource = new BindingSource(itemsDictionary, null);
+                this.comboBox1.DisplayMember = "Value";
+                this.comboBox1.ValueMember = "Key";
+            }
+        }
+
+        private void loadFacilityOptions()
+        {
+            int selectedValue = ((KeyValuePair<int, string>)this.comboBox1.SelectedItem).Key;
+
+            if (this.comboBox1.SelectedIndex != -1)
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+
+                    MySqlCommand cmd;
+                    connection.Open();
+                    if (selectedValue == 0)
+                    {
+                        var query = "SELECT * FROM sport_facility";
+                        cmd = new MySqlCommand(query, connection);
+                    }
+                    else
+                    {
+                        var query = "SELECT * FROM sport_facility WHERE sport_complex_id = @sportComplexId";
+                        cmd = new MySqlCommand(query, connection);
+                        cmd.Parameters.AddWithValue("@sportComplexId", selectedValue);
+                        cmd.Prepare();
+                    }
+
+                    cmd.CommandType = CommandType.Text;
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    Dictionary<int, string> itemsDictionary = new Dictionary<int, string>
+                    {
+                        { 0, "Wszystko" }
+                    };
+                    while (dataReader.Read())
+                    {
+                        itemsDictionary.Add(dataReader.GetInt32(0), dataReader.GetString(2));
+                    }
+
+                    this.comboBox2.DataSource = new BindingSource(itemsDictionary, null);
+                    this.comboBox2.DisplayMember = "Value";
+                    this.comboBox2.ValueMember = "Key";
+                }
+            }
+        }
+
+        private void Combobox1_onChange(object sender, EventArgs e)
+        {
+            loadFacilityOptions();
+            showReservations();
+        }
+
+        private void Combobox2_onChange(object sender, EventArgs e)
+        {
+            showReservations();
         }
 
         private void showCustomers()
@@ -111,6 +217,8 @@ namespace SportCenterDataBaseApp
         private void Form1_Load(object sender, EventArgs e)
         {
             GridFill();
+            loadSportComplexOptions();
+            loadFacilityOptions();
             showReservations();
         }
 
