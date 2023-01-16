@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using MySql.Data.MySqlClient;
 
 namespace SportCenterDataBaseApp
@@ -89,7 +90,7 @@ namespace SportCenterDataBaseApp
                 }
                 else if (selectedComplex != 0)
                 {
-                    query = "SELECT * FROM reservation " +
+                    query = "SELECT reservation.reservation_id, customer.phone_number FROM reservation " +
                         "JOIN sport_facility " +
                         "ON reservation.reservation_facility_id = sport_facility.sport_facility_id " +
                         "WHERE sport_facility.sport_complex_id=@sportComplexId";
@@ -117,7 +118,7 @@ namespace SportCenterDataBaseApp
 
                 Dictionary<int, string> itemsDictionary = new Dictionary<int, string>
                 {
-                    { 0, "Wszystko" }
+                    { 0, "Wybierz" }
                 };
 
                 while (dataReader.Read())
@@ -160,7 +161,7 @@ namespace SportCenterDataBaseApp
 
                     Dictionary<int, string> itemsDictionary = new Dictionary<int, string>
                     {
-                        { 0, "Wszystko" }
+                        { 0, "Wybierz" }
                     };
                     while (dataReader.Read())
                     {
@@ -171,6 +172,15 @@ namespace SportCenterDataBaseApp
                     this.comboBox2.DisplayMember = "Value";
                     this.comboBox2.ValueMember = "Key";
                 }
+            }
+        }
+
+        private void loadStartEndComboBoxes()
+        {
+            for (int i=6; i<=22; i++)
+            {
+                this.comboBoxReservationStart.Items.Add(i);
+                this.comboBoxReservationEnd.Items.Add(i);
             }
         }
 
@@ -219,6 +229,7 @@ namespace SportCenterDataBaseApp
             GridFill();
             loadSportComplexOptions();
             loadFacilityOptions();
+            loadStartEndComboBoxes();
             showReservations();
         }
 
@@ -305,5 +316,16 @@ namespace SportCenterDataBaseApp
                 buttonAddCustomer.Text = "Zaktualizuj dane";
             }
         }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
