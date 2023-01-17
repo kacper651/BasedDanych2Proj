@@ -21,6 +21,36 @@ namespace SportCenterDataBaseApp
             InitializeComponent();
         }
 
+        public MySqlConnection GetConnection()
+        {
+            return new MySqlConnection(connectionString);
+        }
+
+        public TextBox GetTextBoxReservationCustomerPhone()
+        {
+            return this.textBoxReservationCustomerPhone;
+        }
+
+        public DateTimePicker GetDateTimePickerReservation()
+        {
+            return this.dateTimePickerReservation;
+        }
+
+        public ComboBox GetComboBoxReservationStart()
+        {
+            return this.comboBoxReservationStart;
+        }
+
+        public ComboBox GetComboBoxReservationEnd()
+        {
+            return this.comboBoxReservationEnd;
+        }
+
+        public ComboBox GetComboBoxSportFacility()
+        {
+            return this.comboBoxSportFacility;
+        }
+
         private void addSportComplex()
         {
 
@@ -68,8 +98,8 @@ namespace SportCenterDataBaseApp
 
         private void showReservations()
         {
-            int selectedComplex = ((KeyValuePair<int, string>)this.comboBox1.SelectedItem).Key;
-            int selectedFacility = ((KeyValuePair<int, string>)this.comboBox2.SelectedItem).Key;
+            int selectedComplex = ((KeyValuePair<int, string>)this.comboBoxSportComplex.SelectedItem).Key;
+            int selectedFacility = ((KeyValuePair<int, string>)this.comboBoxSportFacility.SelectedItem).Key;
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -82,7 +112,7 @@ namespace SportCenterDataBaseApp
                             "JOIN customer ON reservation.customer_id = customer.customer_id " +
                             "JOIN sport_facility ON reservation.reservation_facility_id = sport_facility.sport_facility_id " +
                             "JOIN sport_complex ON sport_facility.sport_complex_id = sport_facility.sport_complex_id ";
-                String dateFilter = String.Format("reservation.reservation_time='{0}' ", this.dateTimePicker1.Value.ToString("yyyy-MM-dd"));
+                String dateFilter = String.Format("reservation.reservation_time='{0}' ", this.dateTimePickerReservation.Value.ToString("yyyy-MM-dd"));
                 var groupByClause = "GROUP BY reservation.reservation_id";
 
 
@@ -158,17 +188,17 @@ namespace SportCenterDataBaseApp
                     itemsDictionary.Add(dataReader.GetInt32(0), dataReader.GetString(1));
                 }
 
-                this.comboBox1.DataSource = new BindingSource(itemsDictionary, null);
-                this.comboBox1.DisplayMember = "Value";
-                this.comboBox1.ValueMember = "Key";
+                this.comboBoxSportComplex.DataSource = new BindingSource(itemsDictionary, null);
+                this.comboBoxSportComplex.DisplayMember = "Value";
+                this.comboBoxSportComplex.ValueMember = "Key";
             }
         }
 
         private void loadFacilityOptions()
         {
-            int selectedValue = ((KeyValuePair<int, string>)this.comboBox1.SelectedItem).Key;
+            int selectedValue = ((KeyValuePair<int, string>)this.comboBoxSportComplex.SelectedItem).Key;
 
-            if (this.comboBox1.SelectedIndex != -1)
+            if (this.comboBoxSportComplex.SelectedIndex != -1)
             {
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
@@ -200,9 +230,9 @@ namespace SportCenterDataBaseApp
                         itemsDictionary.Add(dataReader.GetInt32(0), dataReader.GetString(2));
                     }
 
-                    this.comboBox2.DataSource = new BindingSource(itemsDictionary, null);
-                    this.comboBox2.DisplayMember = "Value";
-                    this.comboBox2.ValueMember = "Key";
+                    this.comboBoxSportFacility.DataSource = new BindingSource(itemsDictionary, null);
+                    this.comboBoxSportFacility.DisplayMember = "Value";
+                    this.comboBoxSportFacility.ValueMember = "Key";
                 }
             }
         }
@@ -389,9 +419,56 @@ namespace SportCenterDataBaseApp
             }
         }
 
-        private void button_SaveReservation_Click(object sender, EventArgs e)
+        private bool ReservationFormValid()
         {
+            // validate all fields
+            // sport_facility
+            // customer.customer_phone
+            // date
+            // start_hour
+            // end_hour
 
+            List<ComboBox> comboBoxes = new List<ComboBox>
+            {
+               this.comboBoxSportFacility,
+               // TODO check if period from start to end is valid
+               this.comboBoxReservationStart,
+               this.comboBoxReservationEnd
+            };
+            foreach (var comboBox in comboBoxes)
+            {
+                if (comboBox.SelectedIndex == -1) return false;
+            }
+            // TODO validate customer.customer_phone if exists in DB
+            if (this.textBoxReservationCustomerPhone.Text == "") return false;
+            // TODO validate if date is valid
+            if (this.dateTimePickerReservation.Value.ToString("yyyy-MM-dd") == "") return false;
+            return true;
+        }
+
+        private void Button_SaveReservation_Click(object sender, EventArgs e)
+        {
+            if (this.ReservationFormValid())
+            {
+                // save record to DB
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    ReservationFormData formData = new ReservationFormData(this);
+                    var query = "INSERT INTO reservation (reservation_id, customer_id, reservation_time, start_hour, end_hour, reservation_facility_id) " +
+                            $"VALUES(NULL, '{formData.customerId}', '{formData.reservationTime}', '{formData.startHour}', '{formData.endHour}', '{formData.sportFacilityId}');";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Pomyślnie zapisano rezerwację");
+                    showReservations();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Formularz rezerwacji zawiera błędy!");
+            }
         }
     }
 }
