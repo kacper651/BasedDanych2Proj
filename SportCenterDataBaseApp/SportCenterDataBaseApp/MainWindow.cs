@@ -209,11 +209,12 @@ namespace SportCenterDataBaseApp
 
         private void loadStartEndComboBoxes()
         {
-            for (int i=6; i<=22; i++)
+            for (int i=6; i<=21; i++)
             {
                 this.comboBoxReservationStart.Items.Add(i);
                 this.comboBoxReservationEnd.Items.Add(i);
             }
+            this.comboBoxReservationEnd.Items.Add(22);
         }
 
         private void Combobox1_onChange(object sender, EventArgs e)
@@ -367,6 +368,30 @@ namespace SportCenterDataBaseApp
         private void dateTimePicker1_TextChanged(object sender, EventArgs e)
         {
             showReservations();
+        }
+
+        private void comboBoxReservationStart_SelectedValueChanged(object sender, EventArgs e)
+        {
+            ComboBox cmb = (ComboBox)sender;
+            int selectedValue = (int)cmb.SelectedItem;
+            // enable reservation end if this is valid
+            if (selectedValue >= 6)
+            {
+                this.comboBoxReservationEnd.Enabled = true;
+                // clear old and add valid hours (> start_hour)
+                this.comboBoxReservationEnd.Items.Clear();
+                for (int i = selectedValue + 1; i <= 22; i++)
+                {
+                    this.comboBoxReservationEnd.Items.Add(i);
+                }
+                // next hour by default
+                this.comboBoxReservationEnd.SelectedIndex = 0;
+            }
+        }
+
+        private void button_SaveReservation_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

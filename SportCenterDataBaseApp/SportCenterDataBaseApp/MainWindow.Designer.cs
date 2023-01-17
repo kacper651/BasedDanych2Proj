@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.buttonDeleteCustomer = new System.Windows.Forms.Button();
             this.dataGridViewCustomers = new System.Windows.Forms.DataGridView();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.button_SaveReservation = new System.Windows.Forms.Button();
+            this.button_DeleteReservation = new System.Windows.Forms.Button();
             this.buttonAddCustomer = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.dataGridViewReservations = new System.Windows.Forms.DataGridView();
@@ -86,23 +86,24 @@
             this.dataGridViewCustomers.TabIndex = 2;
             this.dataGridViewCustomers.DoubleClick += new System.EventHandler(this.dataGridViewCustomers_DoubleClick);
             // 
-            // button2
+            // button_SaveReservation
             // 
-            this.button2.Location = new System.Drawing.Point(3, 531);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(102, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Dodaj rezerwację";
-            this.button2.UseVisualStyleBackColor = true;
+            this.button_SaveReservation.Location = new System.Drawing.Point(3, 531);
+            this.button_SaveReservation.Name = "button_SaveReservation";
+            this.button_SaveReservation.Size = new System.Drawing.Size(102, 23);
+            this.button_SaveReservation.TabIndex = 3;
+            this.button_SaveReservation.Text = "Dodaj rezerwację";
+            this.button_SaveReservation.UseVisualStyleBackColor = true;
+            this.button_SaveReservation.Click += new System.EventHandler(this.button_SaveReservation_Click);
             // 
-            // button4
+            // button_DeleteReservation
             // 
-            this.button4.Location = new System.Drawing.Point(111, 531);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(102, 23);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Usuń rezerwację";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button_DeleteReservation.Location = new System.Drawing.Point(111, 531);
+            this.button_DeleteReservation.Name = "button_DeleteReservation";
+            this.button_DeleteReservation.Size = new System.Drawing.Size(102, 23);
+            this.button_DeleteReservation.TabIndex = 3;
+            this.button_DeleteReservation.Text = "Usuń rezerwację";
+            this.button_DeleteReservation.UseVisualStyleBackColor = true;
             // 
             // buttonAddCustomer
             // 
@@ -293,14 +294,18 @@
             // 
             // comboBoxReservationStart
             // 
+            this.comboBoxReservationStart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxReservationStart.FormattingEnabled = true;
             this.comboBoxReservationStart.Location = new System.Drawing.Point(68, 447);
             this.comboBoxReservationStart.Name = "comboBoxReservationStart";
             this.comboBoxReservationStart.Size = new System.Drawing.Size(121, 21);
             this.comboBoxReservationStart.TabIndex = 17;
+            this.comboBoxReservationStart.SelectedValueChanged += new System.EventHandler(this.comboBoxReservationStart_SelectedValueChanged);
             // 
             // comboBoxReservationEnd
             // 
+            this.comboBoxReservationEnd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxReservationEnd.Enabled = false;
             this.comboBoxReservationEnd.FormattingEnabled = true;
             this.comboBoxReservationEnd.Location = new System.Drawing.Point(68, 474);
             this.comboBoxReservationEnd.Name = "comboBoxReservationEnd";
@@ -327,8 +332,8 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.CustomFormat = "yyyy-MM-dd";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker1.Location = new System.Drawing.Point(68, 421);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(121, 20);
@@ -378,8 +383,8 @@
             this.Controls.Add(this.dataGridViewReservations);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.buttonAddCustomer);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button_DeleteReservation);
+            this.Controls.Add(this.button_SaveReservation);
             this.Controls.Add(this.dataGridViewCustomers);
             this.Controls.Add(this.buttonDeleteCustomer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -397,8 +402,8 @@
 
         private System.Windows.Forms.Button buttonDeleteCustomer;
         private System.Windows.Forms.DataGridView dataGridViewCustomers;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button_SaveReservation;
+        private System.Windows.Forms.Button button_DeleteReservation;
         private System.Windows.Forms.Button buttonAddCustomer;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.DataGridView dataGridViewReservations;
