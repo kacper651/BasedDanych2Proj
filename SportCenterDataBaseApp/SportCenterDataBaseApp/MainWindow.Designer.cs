@@ -48,9 +48,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -61,7 +59,7 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxFilterReservationByDate = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservations)).BeginInit();
             this.SuspendLayout();
@@ -240,28 +238,12 @@
             this.label8.Text = "Data";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 504);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(47, 13);
-            this.label9.TabIndex = 10;
-            this.label9.Text = "Ośrodek";
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(68, 375);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(121, 20);
             this.textBox1.TabIndex = 11;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(68, 501);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 20);
-            this.textBox3.TabIndex = 11;
             // 
             // label10
             // 
@@ -345,28 +327,31 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker1.CustomFormat = "yyyy-MM-dd";
             this.dateTimePicker1.Location = new System.Drawing.Point(68, 421);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(121, 20);
             this.dateTimePicker1.TabIndex = 21;
+            this.dateTimePicker1.TextChanged += new System.EventHandler(this.dateTimePicker1_TextChanged);
             // 
-            // checkBox1
+            // checkBoxFilterReservationByDate
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(35, 401);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(94, 17);
-            this.checkBox1.TabIndex = 22;
-            this.checkBox1.Text = "Filtruj po dacie";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxFilterReservationByDate.AutoSize = true;
+            this.checkBoxFilterReservationByDate.Location = new System.Drawing.Point(68, 401);
+            this.checkBoxFilterReservationByDate.Name = "checkBoxFilterReservationByDate";
+            this.checkBoxFilterReservationByDate.Size = new System.Drawing.Size(94, 17);
+            this.checkBoxFilterReservationByDate.TabIndex = 22;
+            this.checkBoxFilterReservationByDate.Text = "Filtruj po dacie";
+            this.checkBoxFilterReservationByDate.UseVisualStyleBackColor = true;
+            this.checkBoxFilterReservationByDate.CheckedChanged += new System.EventHandler(this.checkBoxFilterReservationByDate_CheckedChanged);
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(785, 572);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkBoxFilterReservationByDate);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
@@ -377,9 +362,7 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -401,7 +384,7 @@
             this.Controls.Add(this.buttonDeleteCustomer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
-            this.Text = "FitnessPortal";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReservations)).EndInit();
@@ -431,9 +414,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label11;
@@ -444,7 +425,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxFilterReservationByDate;
     }
 }
 

@@ -82,30 +82,54 @@ namespace SportCenterDataBaseApp
                             "JOIN customer ON reservation.customer_id = customer.customer_id " +
                             "JOIN sport_facility ON reservation.reservation_facility_id = sport_facility.sport_facility_id " +
                             "JOIN sport_complex ON sport_facility.sport_complex_id = sport_facility.sport_complex_id ";
-                var whereClause = " ";
+                String dateFilter = String.Format("reservation.reservation_time='{0}' ", this.dateTimePicker1.Value.ToString("yyyy-MM-dd"));
                 var groupByClause = "GROUP BY reservation.reservation_id";
+
+
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 if (selectedComplex == 0 && selectedFacility == 0)
                 {
-                    query += whereClause + groupByClause + ";";
+                    if (this.checkBoxFilterReservationByDate.Checked)
+                    {
+                        query += "WHERE " + dateFilter + groupByClause + ";";
+                    }
+                    else
+                    {
+                        query += groupByClause + ";";
+                    }
                     cmd = new MySqlCommand(query, connection);
                 }
                 else if (selectedFacility != 0)
                 {
-                    whereClause = "WHERE reservation_facility_id = @reservationFacilityId ";
-                    query += whereClause + groupByClause + ";";
+                    var whereClause = "WHERE reservation_facility_id = @reservationFacilityId ";
+                    if (this.checkBoxFilterReservationByDate.Checked)
+                    {
+                        query += whereClause + "AND " + dateFilter + groupByClause + ";";
+                    }
+                    else
+                    { 
+                        query += whereClause + groupByClause + ";";
+                    }
                     cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@reservationFacilityId", selectedFacility);
-                    cmd.Prepare();
                 }
                 else if (selectedComplex != 0)
                 {
-                    whereClause = "WHERE sport_facility.sport_complex_id = @sportComplexId ";
-                    query += whereClause + groupByClause + ";";
+                    var whereClause = "WHERE sport_facility.sport_complex_id = @sportComplexId ";
+                    if (this.checkBoxFilterReservationByDate.Checked)
+                    {
+                        query += whereClause + "AND " + dateFilter + groupByClause + ";";
+                    }
+                    else
+                    {
+                        query += whereClause + groupByClause + ";";
+                    }
                     cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@sportComplexId", selectedComplex);
-                    cmd.Prepare();
                 }
+                cmd.CommandType = CommandType.Text;
+                cmd.Prepare();
+                Console.WriteLine(cmd.CommandText);
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
                 adapter.SelectCommand = cmd;
                 DataTable dt = new DataTable();
@@ -335,5 +359,14 @@ namespace SportCenterDataBaseApp
 
         }
 
+        private void checkBoxFilterReservationByDate_CheckedChanged(object sender, EventArgs e)
+        {
+            showReservations();
+        }
+
+        private void dateTimePicker1_TextChanged(object sender, EventArgs e)
+        {
+            showReservations();
+        }
     }
 }
