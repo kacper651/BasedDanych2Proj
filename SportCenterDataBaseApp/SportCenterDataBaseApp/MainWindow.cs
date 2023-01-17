@@ -74,26 +74,34 @@ namespace SportCenterDataBaseApp
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
-                var query = "SELECT * FROM reservation";
+                var query = "SELECT reservation.reservation_id, customer.customer_phone, " +
+                            "customer.customer_id, customer.customer_name, customer.customer_surname, " +
+                            "customer.customer_email, reservation.reservation_time, sport_complex.sport_complex_name, " +
+                            "sport_facility.sport_facility_name " +
+                            "FROM reservation " +
+                            "JOIN customer ON reservation.customer_id = customer.customer_id " +
+                            "JOIN sport_facility ON reservation.reservation_facility_id = sport_facility.sport_facility_id " +
+                            "JOIN sport_complex ON sport_facility.sport_complex_id = sport_facility.sport_complex_id ";
+                var whereClause = " ";
+                var groupByClause = "GROUP BY reservation.reservation_id";
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 if (selectedComplex == 0 && selectedFacility == 0)
                 {
-                    query = "SELECT * FROM reservation";
+                    query += whereClause + groupByClause + ";";
                     cmd = new MySqlCommand(query, connection);
                 }
                 else if (selectedFacility != 0)
                 {
-                    query = "SELECT * FROM reservation WHERE reservation_facility_id = @reservationFacilityId";
+                    whereClause = "WHERE reservation_facility_id = @reservationFacilityId ";
+                    query += whereClause + groupByClause + ";";
                     cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@reservationFacilityId", selectedFacility);
                     cmd.Prepare();
                 }
                 else if (selectedComplex != 0)
                 {
-                    query = "SELECT reservation.reservation_id, customer.phone_number FROM reservation " +
-                        "JOIN sport_facility " +
-                        "ON reservation.reservation_facility_id = sport_facility.sport_facility_id " +
-                        "WHERE sport_facility.sport_complex_id=@sportComplexId";
+                    whereClause = "WHERE sport_facility.sport_complex_id = @sportComplexId ";
+                    query += whereClause + groupByClause + ";";
                     cmd = new MySqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@sportComplexId", selectedComplex);
                     cmd.Prepare();
