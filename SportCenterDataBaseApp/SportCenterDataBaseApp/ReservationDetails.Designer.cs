@@ -43,10 +43,10 @@
             this.comboBox_Accessories = new System.Windows.Forms.ComboBox();
             this.label_ChooseAccessory = new System.Windows.Forms.Label();
             this.button_SaveReservationAccessory = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView_ReservationAccessories = new System.Windows.Forms.DataGridView();
             this.label_AccessoriesDataGrid = new System.Windows.Forms.Label();
             this.button_DeleteReservationAccessory = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ReservationAccessories)).BeginInit();
             this.SuspendLayout();
             // 
             // label_ReservationId
@@ -184,13 +184,16 @@
             this.button_SaveReservationAccessory.UseVisualStyleBackColor = true;
             this.button_SaveReservationAccessory.Click += new System.EventHandler(this.Button_SaveReservationAccessory_Click);
             // 
-            // dataGridView1
+            // dataGridView_ReservationAccessories
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(241, 38);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(451, 150);
-            this.dataGridView1.TabIndex = 17;
+            this.dataGridView_ReservationAccessories.AllowUserToAddRows = false;
+            this.dataGridView_ReservationAccessories.AllowUserToDeleteRows = false;
+            this.dataGridView_ReservationAccessories.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_ReservationAccessories.Location = new System.Drawing.Point(241, 38);
+            this.dataGridView_ReservationAccessories.Name = "dataGridView_ReservationAccessories";
+            this.dataGridView_ReservationAccessories.ReadOnly = true;
+            this.dataGridView_ReservationAccessories.Size = new System.Drawing.Size(451, 150);
+            this.dataGridView_ReservationAccessories.TabIndex = 17;
             // 
             // label_AccessoriesDataGrid
             // 
@@ -209,6 +212,7 @@
             this.button_DeleteReservationAccessory.TabIndex = 19;
             this.button_DeleteReservationAccessory.Text = "Usuń zaznaczoną rezerwację akcesorium";
             this.button_DeleteReservationAccessory.UseVisualStyleBackColor = true;
+            this.button_DeleteReservationAccessory.Click += new System.EventHandler(this.Button_DeleteReservationAccessory_Click);
             // 
             // ReservationDetails
             // 
@@ -217,7 +221,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button_DeleteReservationAccessory);
             this.Controls.Add(this.label_AccessoriesDataGrid);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dataGridView_ReservationAccessories);
             this.Controls.Add(this.button_SaveReservationAccessory);
             this.Controls.Add(this.label_ChooseAccessory);
             this.Controls.Add(this.comboBox_Accessories);
@@ -235,7 +239,7 @@
             this.Controls.Add(this.label_ReservationId);
             this.Name = "ReservationDetails";
             this.Text = "ReservationDetails";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_ReservationAccessories)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,7 +262,7 @@
         private System.Windows.Forms.ComboBox comboBox_Accessories;
         private System.Windows.Forms.Label label_ChooseAccessory;
         private System.Windows.Forms.Button button_SaveReservationAccessory;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView_ReservationAccessories;
         private System.Windows.Forms.Label label_AccessoriesDataGrid;
         private System.Windows.Forms.Button button_DeleteReservationAccessory;
     }

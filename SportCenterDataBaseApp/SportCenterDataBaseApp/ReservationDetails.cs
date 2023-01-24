@@ -30,6 +30,7 @@ namespace SportCenterDataBaseApp
             this.reservation_id = reservation_id;
             GetReservationData();
             LoadRentalFacilities();
+            ShowReservationAccessories();
         }
 
         private void GetReservationData()
@@ -112,6 +113,27 @@ namespace SportCenterDataBaseApp
             }
         }
 
+        private void ShowReservationAccessories()
+        {
+            using (this.connection)
+            {
+                connection.Open();
+                var query = "SELECT * " +
+                            "FROM reservation_accessory " +
+                            "JOIN accessory ON reservation_accessory.accessory_id = accessory.accessory_id " +
+                            "WHERE reservation_accessory.reservation_id = " + this.reservation_id.ToString() + ";";
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Prepare();
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = cmd;
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                this.dataGridView_ReservationAccessories.DataSource = dt;
+                connection.Close();
+            }
+        }
+
         private void ComboBox_RentalFacilities_onChange(object sender, System.EventArgs e)
         {
             if (!invalidComboboxValues.Contains(this.comboBox_RentalFacilities.SelectedIndex))
@@ -140,6 +162,7 @@ namespace SportCenterDataBaseApp
                     this.comboBox_Accessories.DataSource = new BindingSource(itemsDictionary, null);
                     this.comboBox_Accessories.DisplayMember = "Value";
                     this.comboBox_Accessories.ValueMember = "Key";
+                    connection.Close();
                 }
             }
         }
@@ -166,7 +189,32 @@ namespace SportCenterDataBaseApp
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Pomyślnie zapisano ackesorium do rezerwacji");
+
+                connection.Close();
             }
+            ShowReservationAccessories();
+        }
+
+        private void Button_DeleteReservationAccessory_Click(Object sender, EventArgs e)
+        {
+            // get selected index from data grid
+            int reservation_accessory_id;
+
+            if (this.dataGridView_ReservationAccessories.CurrentRow.Index != -1)
+            {
+                reservation_accessory_id = int.Parse(this.dataGridView_ReservationAccessories.CurrentRow.Cells[0].Value.ToString());
+                var query = "DELETE FROM reservation_accessory " +
+                            $"WHERE reservation_accessory_id = {reservation_accessory_id.ToString()};";
+                using (connection)
+                {
+                    connection.Open();
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            ShowReservationAccessories();
         }
     }
 }
