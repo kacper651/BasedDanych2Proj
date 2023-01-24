@@ -123,7 +123,7 @@ namespace SportCenterDataBaseApp
 
                     var query = "SELECT * FROM accessory ";
                     query += "WHERE rental_facility_id = " + this.comboBox_RentalFacilities.SelectedIndex.ToString() + ";";
-
+                     
                     cmd = new MySqlCommand(query, connection);
                     cmd.CommandType = CommandType.Text;
                     MySqlDataReader dataReader = cmd.ExecuteReader();
@@ -141,6 +141,31 @@ namespace SportCenterDataBaseApp
                     this.comboBox_Accessories.DisplayMember = "Value";
                     this.comboBox_Accessories.ValueMember = "Key";
                 }
+            }
+        }
+
+        private string FetchAccessoryId()
+        {
+            ComboBox acc = this.comboBox_Accessories;
+            return ((KeyValuePair<int, string>)acc.SelectedItem).Key.ToString();
+        }
+
+        private void Button_SaveReservationAccessory_Click(object sender, EventArgs e)
+        {
+            using (connection)
+            {
+                // add validation
+                string accessory_id = this.FetchAccessoryId();
+                var query = "INSERT INTO reservation_accessory (reservation_id, accessory_id) " +
+                    $"VALUES({this.reservation_id.ToString()}, {accessory_id});";
+
+                connection.Open();
+
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.CommandType = CommandType.Text;
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Pomyślnie zapisano ackesorium do rezerwacji");
             }
         }
     }

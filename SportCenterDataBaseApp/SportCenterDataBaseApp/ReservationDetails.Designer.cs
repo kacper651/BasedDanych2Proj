@@ -182,6 +182,7 @@
             this.button_SaveReservationAccessory.TabIndex = 16;
             this.button_SaveReservationAccessory.Text = "Zapisz akcesorium";
             this.button_SaveReservationAccessory.UseVisualStyleBackColor = true;
+            this.button_SaveReservationAccessory.Click += new System.EventHandler(this.Button_SaveReservationAccessory_Click);
             // 
             // dataGridView1
             // 
