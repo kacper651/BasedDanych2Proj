@@ -104,6 +104,7 @@
             this.button_DeleteReservation.TabIndex = 3;
             this.button_DeleteReservation.Text = "Usuń rezerwację";
             this.button_DeleteReservation.UseVisualStyleBackColor = true;
+            this.button_DeleteReservation.Click += new System.EventHandler(this.Button_DeleteReservationClick);
             // 
             // buttonAddCustomer
             // 

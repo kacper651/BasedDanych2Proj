@@ -51,51 +51,6 @@ namespace SportCenterDataBaseApp
             return this.comboBoxSportFacility;
         }
 
-        private void addSportComplex()
-        {
-
-        }
-
-        private void editSportComplex()
-        {
-
-        }
-
-        private void deleteSportComplex()
-        {
-
-        }
-
-        private void addSportFacility()
-        {
-
-        }
-
-        private void editSportFacilityx()
-        {
-
-        }
-
-        private void deleteSportFacility()
-        {
-
-        }
-
-        private void makeReservation()
-        {
-
-        }
-
-        private void editReservation()
-        {
-
-        }
-
-        private void deleteReservation()
-        {
-
-        }
-
         private void showReservations()
         {
             int selectedComplex = ((KeyValuePair<int, string>)this.comboBoxSportComplex.SelectedItem).Key;
@@ -463,6 +418,28 @@ namespace SportCenterDataBaseApp
             else
             {
                 MessageBox.Show("Formularz rezerwacji zawiera błędy!");
+            }
+        }
+
+        private void Button_DeleteReservationClick(object sender, EventArgs e)
+        {
+            if (this.dataGridViewReservations.CurrentRow.Index != -1)
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string reservation_id = this.dataGridViewReservations.CurrentRow.Cells[0].Value.ToString();
+                    var query = "DELETE FROM reservation " +
+                                $"WHERE reservation_id = {reservation_id};";
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Pomyślnie usunięto rezerwację");
+
+                    connection.Close();
+                }
+                showReservations();
             }
         }
 
