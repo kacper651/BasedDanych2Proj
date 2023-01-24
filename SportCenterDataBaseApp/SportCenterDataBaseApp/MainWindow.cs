@@ -400,19 +400,27 @@ namespace SportCenterDataBaseApp
         {
             if (this.ReservationFormValid())
             {
-                // save record to DB
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                ReservationFormData formData = new ReservationFormData(this);
+                if (formData.customerId != "")
                 {
-                    connection.Open();
-                    ReservationFormData formData = new ReservationFormData(this);
-                    var query = "INSERT INTO reservation (reservation_id, customer_id, reservation_time, start_hour, end_hour, reservation_facility_id) " +
-                            $"VALUES(NULL, '{formData.customerId}', '{formData.reservationTime}', '{formData.startHour}', '{formData.endHour}', '{formData.sportFacilityId}');";
-                    MySqlCommand cmd = new MySqlCommand(query, connection);
-                    cmd.CommandType = CommandType.Text;
-                    cmd.Prepare();
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Pomyślnie zapisano rezerwację");
-                    showReservations();
+                    // save record to DB
+                    using (MySqlConnection connection = new MySqlConnection(connectionString))
+                    {
+                        connection.Open();
+
+                        var query = "INSERT INTO reservation (reservation_id, customer_id, reservation_time, start_hour, end_hour, reservation_facility_id) " +
+                                $"VALUES(NULL, '{formData.customerId}', '{formData.reservationTime}', '{formData.startHour}', '{formData.endHour}', '{formData.sportFacilityId}');";
+                        MySqlCommand cmd = new MySqlCommand(query, connection);
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Prepare();
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Pomyślnie zapisano rezerwację");
+                        showReservations();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Nie znaleziono klienta o podanym numerze telefonu.");
                 }
             }
             else
