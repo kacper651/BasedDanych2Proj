@@ -134,6 +134,7 @@
             this.dataGridViewReservations.ReadOnly = true;
             this.dataGridViewReservations.Size = new System.Drawing.Size(450, 173);
             this.dataGridViewReservations.TabIndex = 4;
+            //this.dataGridViewReservations.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewReservations_CellContentClick);
             this.dataGridViewReservations.DoubleClick += new System.EventHandler(this.dataGridViewReservations_DoubleClick);
             // 
             // label1
@@ -355,7 +356,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(785, 572);
+            this.ClientSize = new System.Drawing.Size(785, 579);
             this.Controls.Add(this.checkBoxFilterReservationByDate);
             this.Controls.Add(this.dateTimePickerReservation);
             this.Controls.Add(this.label14);

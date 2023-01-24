@@ -106,7 +106,7 @@ namespace SportCenterDataBaseApp
                 connection.Open();
                 var query = "SELECT reservation.reservation_id, customer.customer_phone, " +
                             "customer.customer_id, customer.customer_name, customer.customer_surname, " +
-                            "customer.customer_email, reservation.reservation_time, sport_complex.sport_complex_name, " +
+                            "customer.customer_email, reservation.reservation_time, reservation.start_hour, reservation.end_hour, sport_complex.sport_complex_name, " +
                             "sport_facility.sport_facility_name " +
                             "FROM reservation " +
                             "JOIN customer ON reservation.customer_id = customer.customer_id " +
@@ -363,11 +363,6 @@ namespace SportCenterDataBaseApp
             textBoxEmail.Clear();
         }
 
-        private void dataGridViewReservations_DoubleClick(object sender, EventArgs e)
-        {
-
-        }
-
         private void dataGridViewCustomers_DoubleClick(object sender, EventArgs e)
         {
             if(dataGridViewCustomers.CurrentRow.Index != -1)
@@ -468,6 +463,35 @@ namespace SportCenterDataBaseApp
             else
             {
                 MessageBox.Show("Formularz rezerwacji zawiera błędy!");
+            }
+        }
+
+        private void dataGridViewReservations_DoubleClick(object sender, EventArgs e)
+        {
+            Console.WriteLine("DOUBLE CLICK!");
+            int reservation_id;
+            string customer_phone;
+            int customer_id;
+            string customer_name;
+            string customer_surname;
+            string customer_email;
+            string reservation_time;
+            int start_hour;
+            int end_hour;
+            string sport_complex_name;
+            string sport_facility_name;
+
+            if (dataGridViewReservations.CurrentRow.Index != -1)
+            {
+                reservation_id = int.Parse(dataGridViewReservations.CurrentRow.Cells[0].Value.ToString());
+                Console.WriteLine(reservation_id);
+                ReservationDetails reservationDetails= new ReservationDetails(this.GetConnection(), reservation_id);
+                reservationDetails.Show();
+                //textBoxPhoneNr.Text = dataGridViewCustomers.CurrentRow.Cells[1].Value.ToString();
+                //textBoxName.Text = dataGridViewCustomers.CurrentRow.Cells[2].Value.ToString();
+                //textBoxSurname.Text = dataGridViewCustomers.CurrentRow.Cells[3].Value.ToString();
+                //textBoxEmail.Text = dataGridViewCustomers.CurrentRow.Cells[4].Value.ToString();
+                //buttonAddCustomer.Text = "Zaktualizuj dane";
             }
         }
     }
