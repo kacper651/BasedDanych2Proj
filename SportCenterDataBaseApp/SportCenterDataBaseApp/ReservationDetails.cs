@@ -16,7 +16,8 @@ namespace SportCenterDataBaseApp
         MySqlConnection connection;
         int reservation_id;
         int sport_complex_id;
-        int[] rental_facility_ids;
+        List<int> invalidComboboxValues = new List<int> { 0, -1 };
+        //List<int> rental_facility_ids = new List<int>();
         public ReservationDetails()
         {
             InitializeComponent();
@@ -99,13 +100,47 @@ namespace SportCenterDataBaseApp
 
                 while (dataReader.Read())
                 {
-                    itemsDictionary.Add(dataReader.GetInt32(0), dataReader.GetString(2));
-                    this.rental_facility_ids.Append(dataReader.GetInt32(0));
+                    int rental_facility_id = dataReader.GetInt32(0);
+                    itemsDictionary.Add(rental_facility_id, dataReader.GetString(2));
+                    Console.WriteLine(rental_facility_id);
+                    //this.rental_facility_ids.Append(rental_facility_id);
                 }
 
                 this.comboBox_RentalFacilities.DataSource = new BindingSource(itemsDictionary, null);
                 this.comboBox_RentalFacilities.DisplayMember = "Value";
                 this.comboBox_RentalFacilities.ValueMember = "Key";
+            }
+        }
+
+        private void ComboBox_RentalFacilities_onChange(object sender, System.EventArgs e)
+        {
+            if (!invalidComboboxValues.Contains(this.comboBox_RentalFacilities.SelectedIndex))
+            {
+                using (connection)
+                {
+                    MySqlCommand cmd;
+                    connection.Open();
+
+                    var query = "SELECT * FROM accessory ";
+                    query += "WHERE rental_facility_id = " + this.comboBox_RentalFacilities.SelectedIndex.ToString() + ";";
+
+                    cmd = new MySqlCommand(query, connection);
+                    cmd.CommandType = CommandType.Text;
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    Dictionary<int, string> itemsDictionary = new Dictionary<int, string>
+                    {
+                        { 0, "Wybierz" }
+                    };
+                    while (dataReader.Read())
+                    {
+                        itemsDictionary.Add(dataReader.GetInt32(0), dataReader.GetString(2));
+                    }
+
+                    this.comboBox_Accessories.DataSource = new BindingSource(itemsDictionary, null);
+                    this.comboBox_Accessories.DisplayMember = "Value";
+                    this.comboBox_Accessories.ValueMember = "Key";
+                }
             }
         }
     }

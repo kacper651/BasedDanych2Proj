@@ -146,7 +146,7 @@
             this.comboBox_RentalFacilities.Name = "comboBox_RentalFacilities";
             this.comboBox_RentalFacilities.Size = new System.Drawing.Size(121, 21);
             this.comboBox_RentalFacilities.TabIndex = 12;
-            //this.comboBox_RentalFacilities.
+            this.comboBox_RentalFacilities.SelectedIndexChanged += new System.EventHandler(this.ComboBox_RentalFacilities_onChange);
             // 
             // label_ChooseRentalFacility
             // 
